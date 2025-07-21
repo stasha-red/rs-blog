@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import LayoutContainer from './components/LayoutContainer.vue';
 import LayoutHeader from './components/LayoutHeader.vue';
+import LayoutFooter from './components/LayoutFooter.vue';
 </script>
 
 <template>
@@ -13,9 +13,7 @@ import LayoutHeader from './components/LayoutHeader.vue';
       <RouterView />
     </main>
     <footer class="bg-white">
-      <LayoutContainer>
-        Подвал
-      </LayoutContainer>
+      <LayoutFooter />
     </footer>
   </div>
 </template>
