@@ -1,8 +1,10 @@
 <script setup>
+import ArticlesList from '@/components/ArticlesList.vue';
+import LayoutContainer from '@/components/LayoutContainer.vue';
 </script>
 
 <template>
-  <h1>
-    Главная
-  </h1>
+  <LayoutContainer>
+    <ArticlesList />
+  </LayoutContainer>
 </template>
