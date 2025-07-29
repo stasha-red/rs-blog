@@ -12,17 +12,18 @@ const props = defineProps({
   }
 })
 
-const handlerSearch = () => {
-  props.onSearch(searchQuery.value)
-}
-
 let deboucedTimer;
+
+const handlerSearch = () => {
+  clearTimeout(deboucedTimer);
+  props.onSearch({ search: searchQuery.value })
+}
 
 const debouncedSearch = (query) => {
   clearTimeout(deboucedTimer);
 
   deboucedTimer = setTimeout(() => {
-    props.onSearch(query)
+    props.onSearch({ search: query })
   }, 2000)
 }
 
