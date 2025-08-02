@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref, computed } from 'vue'
+import ROLES from '@/constants/roles'
 
 const initUser = {
   id: '',
@@ -12,6 +13,10 @@ export const useUserStore = defineStore('user', () => {
   const user = ref(initUser)
 
   const isAuthorized = computed(() => !!user.value.id)
+
+  const isAdmin = computed(() => user.value.id && user.value.roleId === ROLES.ADMIN)
+
+  const isModerator = computed(() => user.value.id && user.value.roleId === ROLES.MODERATOR)
 
   const login = async (login, password) => {
     try {
@@ -82,7 +87,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  return { user, isAuthorized, register, login, logout }
+  return { user, isAuthorized, isAdmin, isModerator, register, login, logout }
 })
 
 if (import.meta.hot) {
