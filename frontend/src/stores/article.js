@@ -75,6 +75,27 @@ export const useArticleStore = defineStore('article', () => {
     }
   }
 
+  const addArticle = async (newArticle) => {
+    try {
+      const response = await fetch('/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newArticle),
+      })
+
+      if (!response.ok) {
+        throw new Error(response)
+      }
+
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const addComment = async (newComment) => {
     try {
       const response = await fetch(`/api/posts/${article.value.id}/comments`, {
@@ -130,6 +151,7 @@ export const useArticleStore = defineStore('article', () => {
     fetchArticle,
     updateArticle,
     deleteArticle,
+    addArticle,
     addComment,
     deleteComment,
   }
