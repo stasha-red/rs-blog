@@ -13,16 +13,13 @@ export const useArticleStore = defineStore('article', () => {
     try {
       const response = await fetch(`/api/posts/${id}`)
 
-      if (!response.ok) {
-        throw new Error('Fetch failed')
-      }
-
       const data = await response.json()
       if (data.error) {
         throw new Error(data.error)
       } else {
         article.value = data.data
       }
+      return data
     } catch (error) {
       console.error('Ошибка получения статьи', error)
     }

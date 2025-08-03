@@ -4,14 +4,16 @@ import ArticleDetails from '@/components/ArticleDetails.vue';
 import ArticleDetailsForm from '@/components/ArticleDetailsForm.vue';
 import CommentsList from '@/components/CommentsList.vue';
 import CommentsForm from '@/components/CommentsForm.vue';
+import NotFoundView from './NotFoundView.vue';
 
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 
 import { useUserStore } from '@/stores/user';
 import { useArticleStore } from '@/stores/article';
 
 const userStore = useUserStore()
 const articleStore = useArticleStore()
+const notFound = ref(false)
 
 const props = defineProps({
   id: {
@@ -30,15 +32,20 @@ const formatDateOptions = {
 
 onBeforeMount(async () => {
   try {
-    await articleStore.fetchArticle(props.id)
+    const response = await articleStore.fetchArticle(props.id);
+    if (response.error) {
+      notFound.value = true
+    }
   } catch (error) {
-    console.error(error)
+    console.log(error)
+    notFound.value = true
   }
 })
 </script>
 
 <template>
-  <LayoutContainer class="mt-4">
+  <NotFoundView v-if="notFound" />
+  <LayoutContainer v-else class="mt-4">
     <ArticleDetailsForm v-if="articleStore.isInEditMode" />
     <ArticleDetails v-else :date-options="formatDateOptions" />
     <div v-if="!articleStore.isInEditMode && (articleStore.article?.comments?.length > 0 || userStore.isAuthorized)">
