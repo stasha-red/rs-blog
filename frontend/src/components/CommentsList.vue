@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -25,7 +25,7 @@ const props = defineProps({
   }
 })
 
-const handleDeleteComment = (commentId) => {
+const handleDeleteComment = (commentId: string) => {
   errorMessage.value = '';
 
   modalStore.open('Удалить комментарий?', async () => {

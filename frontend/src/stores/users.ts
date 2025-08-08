@@ -1,8 +1,9 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref } from 'vue'
+import type { ApiResponse, User } from '@/types'
 
 export const useUsersStore = defineStore('users', () => {
-  const users = ref([])
+  const users = ref<User[]>([])
 
   const fetchUsers = async () => {
     try {
@@ -18,7 +19,7 @@ export const useUsersStore = defineStore('users', () => {
     }
   }
 
-  const deleteUser = async (userId) => {
+  const deleteUser = async (userId:string) => {
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'DELETE',
@@ -34,7 +35,7 @@ export const useUsersStore = defineStore('users', () => {
     }
   }
 
-  const changeUserRole = async (userId, userRole) => {
+  const changeUserRole = async (userId:string, userRole:number): Promise<ApiResponse<User>> => {
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'PATCH',
@@ -51,6 +52,7 @@ export const useUsersStore = defineStore('users', () => {
       return data
     } catch (error) {
       console.error('Ошибка обновления роли пользователя', error)
+      throw error
     }
   }
 

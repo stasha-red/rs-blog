@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faCalendar, faComment } from '@fortawesome/free-solid-svg-icons';
 import { useArticlesStore } from '@/stores/articles';

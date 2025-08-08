@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import ButtonBase from '@/components/base/ButtonBase.vue';
 import { useArticleStore } from '@/stores/article';
 import { ref } from 'vue';

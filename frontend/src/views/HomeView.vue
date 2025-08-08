@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import LayoutContainer from '@/components/layout/LayoutContainer.vue';
 import SearchBase from '@/components/base/SearchBase.vue';
 import ArticlesList from '@/components/ArticlesList.vue';

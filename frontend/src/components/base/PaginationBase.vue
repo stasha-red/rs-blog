@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   currentPage: {
     type: Number,
@@ -14,7 +14,7 @@ const props = defineProps({
   }
 })
 
-const goToPage = (page) => {
+const goToPage = (page: number) => {
   props.onPageChanges({ page })
 }
 

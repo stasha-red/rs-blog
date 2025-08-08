@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 
 const props = defineProps({
   type: {
     type: String,
     default: 'info',
-    validator: (value) => ['error', 'success', 'warning', 'info'].includes(value)
+    validator: (value: string) => ['error', 'success', 'warning', 'info'].includes(value)
   }
 })
 

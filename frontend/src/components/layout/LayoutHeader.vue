@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import LayoutContainer from './LayoutContainer.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faBackward, faCode, faFile, faUsers, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';

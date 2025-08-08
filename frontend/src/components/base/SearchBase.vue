@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { ref, watch } from 'vue';
@@ -14,14 +14,14 @@ const props = defineProps({
   }
 })
 
-let deboucedTimer;
+let deboucedTimer: ReturnType<typeof setTimeout> | undefined;
 
 const handlerSearch = () => {
   clearTimeout(deboucedTimer);
   props.onSearch({ search: searchQuery.value })
 }
 
-const debouncedSearch = (query) => {
+const debouncedSearch = (query: string) => {
   clearTimeout(deboucedTimer);
 
   deboucedTimer = setTimeout(() => {

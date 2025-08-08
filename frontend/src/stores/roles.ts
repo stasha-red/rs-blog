@@ -1,8 +1,9 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref } from 'vue'
+import type { Role } from '@/types'
 
 export const useRolesStore = defineStore('roles', () => {
-  const roles = ref([])
+  const roles = ref<Role[]>([])
 
   const fetchRoles = async () => {
     try {

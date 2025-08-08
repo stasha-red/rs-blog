@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faFloppyDisk, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +9,11 @@ import { useRolesStore } from '@/stores/roles';
 
 import LayoutContainer from '@/components/layout/LayoutContainer.vue';
 import MessageBoxBase from '@/components/base/MessageBoxBase.vue';
+import type { User } from '@/types';
 
-const users = ref([]);
-const userMessage = ref({})
-const userMessageType = ref({})
+const users = ref<User[]>([]);
+const userMessage = ref<Record<string, string>>({})
+const userMessageType = ref<Record<string, string>>({})
 
 const usersStore = useUsersStore();
 const rolesStore = useRolesStore();
@@ -35,7 +36,7 @@ onBeforeMount(async () => {
   })
 })
 
-const handleUserDelete = async (userId) => {
+const handleUserDelete = async (userId: string) => {
   const response = await usersStore.deleteUser(userId);
 
   if (response.error) {
@@ -47,14 +48,14 @@ const handleUserDelete = async (userId) => {
   }
 }
 
-const handleUserRole = async (user) => {
+const handleUserRole = async (user: User) => {
   const storedUser = usersStore.users.find(u => u.id === user.id)
 
-  if (user.roleId === storedUser.roleId) {
+  if (!storedUser || user.roleId === storedUser.roleId) {
     return
   }
 
-  const response = usersStore.changeUserRole(user.id, user.roleId);
+  const response = await usersStore.changeUserRole(user.id, user.roleId);
 
   if (response.error) {
     console.error(response.error)

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faTrash, faPenToSquare, faCalendar } from '@fortawesome/free-solid-svg-icons';

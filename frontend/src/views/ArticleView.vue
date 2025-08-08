@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import LayoutContainer from '@/components/layout/LayoutContainer.vue';
 import ArticleDetails from '@/components/ArticleDetails.vue';
 import ArticleDetailsForm from '@/components/ArticleDetailsForm.vue';

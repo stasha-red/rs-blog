@@ -1,13 +1,14 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref } from 'vue'
+import type { Article } from '@/types'
 
 export const useArticlesStore = defineStore('articles', () => {
-  const articles = ref([])
+  const articles = ref<Article[]>([])
   const currentPage = ref(1)
   const totalPage = ref(1)
   const searchQuery = ref('')
 
-  const fetchArticles = async (args) => {
+  const fetchArticles = async (args? : { page?: number, search?: string }) => {
     const { page, search } = args || {}
 
     const isNewSearch = search !== undefined && search !== searchQuery.value
