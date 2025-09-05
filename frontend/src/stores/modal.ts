@@ -6,7 +6,7 @@ export const useModalStore = defineStore('modal', () => {
   const isVisible = ref(false)
   const callback = ref(() => {})
 
-  const open = (newMessage: string, newCallback: ()=> void) => {
+  const open = (newMessage: string, newCallback: () => void) => {
     callback.value = newCallback
     message.value = newMessage
     isVisible.value = true

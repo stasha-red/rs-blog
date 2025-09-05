@@ -3,13 +3,15 @@ export interface Article {
   title: string
   content: string
   imageUrl: string
-  publishedAt: string
-  comments: Array<{
-    id: string
-    author: string
-    content: string
-    publishedAt: string
-  }>
+  publishedAt: Date
+  comments: Comment[]
+}
+
+export interface Comment {
+  id: string
+  author: string
+  content: string
+  publishedAt: Date
 }
 
 export interface Role {
@@ -21,10 +23,22 @@ export interface User {
   id: string
   login: string
   roleId: number
-  registeredAt: string
+  registeredAt: Date
 }
 
-export interface ApiResponse<T>{
+export interface ApiResponse<T> {
   data?: T
   error?: string
+}
+
+export interface YandexWeatherApiResponse {
+  geo_object: {
+    locality: {
+      name: string
+    }
+  }
+  fact: {
+    temp: number
+    prec_strength: number
+  }
 }

@@ -1,11 +1,11 @@
+import type { ApiResponse, Role } from '@/types'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref } from 'vue'
-import type { Role } from '@/types'
 
 export const useRolesStore = defineStore('roles', () => {
   const roles = ref<Role[]>([])
 
-  const fetchRoles = async () => {
+  const fetchRoles = async ():Promise<ApiResponse<Role[]> | undefined> => {
     try {
       const response = await fetch('/api/users/roles')
 

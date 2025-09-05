@@ -1,13 +1,13 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref, computed } from 'vue'
 import ROLES from '@/constants/roles'
-import type { User } from '@/types'
+import type { ApiResponse, User } from '@/types'
 
-const initUser: User = {
+const initUser:User = {
   id: '',
   login: '',
   roleId: 4,
-  registeredAt: '',
+  registeredAt: new Date(),
 }
 
 export const useUserStore = defineStore('user', () => {
@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', () => {
 
   const isModerator = computed(() => user.value.id && user.value.roleId === ROLES.MODERATOR)
 
-  const login = async (login: string, password: string) => {
+  const login = async (login: string, password: string):Promise<ApiResponse<User> | undefined> => {
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -43,7 +43,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const logout = async () => {
+  const logout = async (): Promise<ApiResponse<string> | undefined> => {
     try {
       const response = await fetch('/api/logout', {
         method: 'POST',
@@ -64,7 +64,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const register = async (login: string, password: string) => {
+  const register = async (login: string, password: string):Promise<ApiResponse<User> | undefined> => {
     try {
       const response = await fetch('/api/register', {
         method: 'POST',

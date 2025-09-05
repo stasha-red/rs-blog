@@ -29,7 +29,7 @@ onBeforeMount(() => {
             <h3 class="text-xl mb-2">{{ article.title }}</h3>
             <div class="mt-auto flex align-centen justify-between">
               <p>
-                <time :datetime="article.publishedAt">
+                <time :datetime="article.publishedAt.toDateString()">
                   <FontAwesomeIcon :icon="faCalendar" />
                   {{ formatDate(article.publishedAt) }}
                 </time>

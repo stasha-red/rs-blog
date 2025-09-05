@@ -1,11 +1,11 @@
+import type { ApiResponse, User } from '@/types'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref } from 'vue'
-import type { ApiResponse, User } from '@/types'
 
 export const useUsersStore = defineStore('users', () => {
   const users = ref<User[]>([])
 
-  const fetchUsers = async () => {
+  const fetchUsers = async ():Promise<ApiResponse<User[]> | undefined> => {
     try {
       const response = await fetch('/api/users')
 
@@ -19,7 +19,7 @@ export const useUsersStore = defineStore('users', () => {
     }
   }
 
-  const deleteUser = async (userId:string) => {
+  const deleteUser = async (userId:string): Promise<ApiResponse<string> | undefined> => {
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'DELETE',
@@ -35,7 +35,7 @@ export const useUsersStore = defineStore('users', () => {
     }
   }
 
-  const changeUserRole = async (userId:string, userRole:number): Promise<ApiResponse<User>> => {
+  const changeUserRole = async (userId: string, userRole: number):Promise<ApiResponse<User> | undefined> => {
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'PATCH',

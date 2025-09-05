@@ -30,7 +30,7 @@ const handleDeleteComment = (commentId: string) => {
 
   modalStore.open('Удалить комментарий?', async () => {
     const response = await articleStore.deleteComment(commentId)
-    if (response.error) {
+    if (response && response.error) {
       errorMessage.value = response.error
     }
   })
@@ -55,7 +55,8 @@ const handleDeleteComment = (commentId: string) => {
         </button>
       </div>
       <p class="text-gray-500 text-sm mb-2">
-        <time :datetime="comment.publishedAt"> {{ formatDate(comment.publishedAt, props.dateOptions) }}</time>
+        <time :datetime="comment.publishedAt.toDateString()"> {{ formatDate(comment.publishedAt, props.dateOptions)
+        }}</time>
       </p>
       <div class="whitespace-pre-wrap mb-2">
         {{ comment.content }}

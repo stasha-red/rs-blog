@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { ref } from 'vue'
-import type { Article } from '@/types'
+import type { ApiResponse, Article } from '@/types'
 
 export const useArticleStore = defineStore('article', () => {
   const article = ref<Article>({
@@ -8,7 +8,7 @@ export const useArticleStore = defineStore('article', () => {
       title: '',
       content: '',
       imageUrl: '',
-      publishedAt: '',
+      publishedAt: new Date(),
       comments: []
   })
   const isInEditMode = ref(false)
@@ -17,7 +17,7 @@ export const useArticleStore = defineStore('article', () => {
     isInEditMode.value = !isInEditMode.value
   }
 
-  const fetchArticle = async (id: string) => {
+  const fetchArticle = async (id: string): Promise<ApiResponse<Article> | undefined> => {
     try {
       const response = await fetch(`/api/posts/${id}`)
 
@@ -30,6 +30,7 @@ export const useArticleStore = defineStore('article', () => {
       return data
     } catch (error) {
       console.error('Ошибка получения статьи', error)
+      return undefined
     }
   }
 
@@ -63,7 +64,7 @@ export const useArticleStore = defineStore('article', () => {
     }
   }
 
-  const deleteArticle = async () => {
+  const deleteArticle = async (): Promise<ApiResponse<string> | undefined>  => {
     try {
       const response = await fetch(`/api/posts/${article.value.id}`, {
         method: 'DELETE',
@@ -80,7 +81,7 @@ export const useArticleStore = defineStore('article', () => {
     }
   }
 
-  const addArticle = async (newArticle: Article) => {
+  const addArticle = async (newArticle: Article): Promise<ApiResponse<Article> | undefined> => {
     try {
       const response = await fetch('/api/posts', {
         method: 'POST',
@@ -101,7 +102,7 @@ export const useArticleStore = defineStore('article', () => {
     }
   }
 
-  const addComment = async (newComment: string) => {
+  const addComment = async (newComment: string): Promise<ApiResponse<Comment> | undefined> => {
     try {
       const response = await fetch(`/api/posts/${article.value.id}/comments`, {
         method: 'POST',
@@ -127,7 +128,7 @@ export const useArticleStore = defineStore('article', () => {
     }
   }
 
-  const deleteComment = async (commentId: string) => {
+  const deleteComment = async (commentId: string): Promise<ApiResponse<string> | undefined>  => {
     try {
       const response = await fetch(`/api/posts/${article.value.id}/comments/${commentId}`, {
         method: 'DELETE',
